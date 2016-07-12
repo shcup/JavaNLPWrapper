@@ -26,7 +26,7 @@ public class Stopword {
 	public void Deword(String context,ArrayList<String> wordlist) throws IOException {
 		// TODO Auto-generated method stub
 		//loading the stopwords.
-	  	File f1 = new File("G:\\tmp\\stopwords.txt");
+	  	File f1 = new File("src\\stopwords.txt");
 	  	BufferedReader br1=new BufferedReader(new InputStreamReader(new FileInputStream(f1)));
 	  	List<String> stopword = new ArrayList<String>();	  	
 	  	while ((sw = br1.readLine()) != null) {
