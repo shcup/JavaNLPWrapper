@@ -13,20 +13,26 @@ public class TokenizerDemo {
 	public static void main(String[] args){
 		String context = "Priyanka who has earned laurels for her character in the series Quantico will now make a Hollywood debut with ¡®Baywatch¡¯.";
 		TokenizerDemo token=new TokenizerDemo();
-		token.Token(context);
+		ArrayList<String> tokenword=new ArrayList<String>();
+		token.Token(context,tokenword);
+		token.print(tokenword);
 	}
-  public void Token (String context) {
+  public void Token (String context,ArrayList<String> tokenword) {
 	    TokenizerFactory<CoreLabel> tokenizerFactory = PTBTokenizer.factory(new CoreLabelTokenFactory(), "");
 	    Tokenizer<CoreLabel> tok =tokenizerFactory.getTokenizer(new StringReader(context));
 	    List<CoreLabel> sentence = tok.tokenize();
 //	   System.err.println("The words of the sentence:");
 	   for (Label lab : sentence) {
 	      if (lab instanceof CoreLabel) {
-	        System.out.println(((CoreLabel) lab).toString());
-	      } else {
-	        System.out.println(lab);
-	      }
+	    	  tokenword.add(lab.value());
+//	        System.out.println(((CoreLabel) lab).toString());
+	      } 
   }
 	   return;
+  }
+  public void print(ArrayList<String> tokenword){
+	  for(int i = 0;i<tokenword.size();i++){
+			System.out.println(""+tokenword.get(i));}
+//	  System.out.println(tokenword);
   }
 }

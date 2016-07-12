@@ -18,10 +18,12 @@ public class Stopword {
 	public static void main(String[] args) throws IOException{
 		String context = "Priyanka who has earned laurels for her character in the series Quantico will now make a Hollywood debut with ¡®Baywatch¡¯.";
 		Stopword st=new Stopword();
-		st.Deword(context);
+		ArrayList<String> wordlist=new ArrayList<String>();
+		st.Deword(context,wordlist);
+		st.print(wordlist);
 	}
     private String sw=null;
-	public void Deword(String context) throws IOException {
+	public void Deword(String context,ArrayList<String> wordlist) throws IOException {
 		// TODO Auto-generated method stub
 		//loading the stopwords.
 	  	File f1 = new File("G:\\tmp\\stopwords.txt");
@@ -30,26 +32,27 @@ public class Stopword {
 	  	while ((sw = br1.readLine()) != null) {
 	            stopword.add(new String(sw));		
 	  		}
-	  	List<String> list = new ArrayList<String>();
 		    TokenizerFactory<CoreLabel> tokenizerFactory = PTBTokenizer.factory(new CoreLabelTokenFactory(), "");
 		    Tokenizer<CoreLabel> tok =tokenizerFactory.getTokenizer(new StringReader(context));
 		    List<CoreLabel> sentence = tok.tokenize();
 		   for (Label lab : sentence) {
-		    	list.add(lab.value());
+		    	wordlist.add(lab.value());
 		    }
 
-			for(int i = 0;i<list.size();i++){
+			for(int i = 0;i<wordlist.size();i++){
 				for(int j =0;j<stopword.size();j++){
-					if(list.get(i).equals(stopword.get(j))){
+					if(wordlist.get(i).equals(stopword.get(j))){
 //						System.out.println(list.get(i)+" "+stop[j]+"É¾³ý³É¹¦");
-						list.remove(i);
+						wordlist.remove(i);
 						i--;
 						break;	
 					}
 				}
 			}
-			for(int i = 0;i<list.size();i++){
-			System.out.println(""+list.get(i));}
+			
 	}
-
+public void print(ArrayList<String> list){
+	for(int i = 0;i<list.size();i++){
+		System.out.println(""+list.get(i));}
+}
 }
