@@ -16,7 +16,7 @@ import edu.stanford.nlp.process.TokenizerFactory;
 
 public class Stopword {
 	public static void main(String[] args) throws IOException{
-		String context = "Priyanka who has earned laurels for her character in the series Quantico will now make a Hollywood debut with ¡®Baywatch¡¯.";
+		String context = "Euro 2016 Final: Yuvraj Singh, Chris Gayle, others celebrate Portugal's victory";
 		Stopword st=new Stopword();
 		ArrayList<String> wordlist=new ArrayList<String>();
 		st.Deword(context,wordlist);

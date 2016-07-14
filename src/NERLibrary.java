@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.javatuples.Quartet;
+
 import edu.stanford.nlp.ie.AbstractSequenceClassifier;
 import edu.stanford.nlp.ie.crf.CRFClassifier;
 import edu.stanford.nlp.ling.CoreLabel;
@@ -11,13 +13,13 @@ import edu.stanford.nlp.util.Triple;
 public class NERLibrary {
 	
 	public static void main(String[] args) throws ClassCastException, ClassNotFoundException, IOException{
-		String context = "Priyanka who has earned laurels for her character in the series Quantico will now make a Hollywood debut with ‘Baywatch’.";
+		String context = "New Delhi: Around 89 per cent of the country has received normal and excess rainfall, owing to a good amount of monsoon in several parts, while large parts of Gujarat have recorded deficiency of more than half.Overall, the country has recorded 254 mm of rainfall from June 1 to July 10, as against 251 mm, which is one per cent more.";
 		NERLibrary nl=new NERLibrary();
 		nl.NERLibrary(7);		
-		HashMap<String,String> word=new HashMap<String,String>();
-		ArrayList<Triple<String, Integer, Integer>> wordIndex=new ArrayList<Triple<String, Integer, Integer>>();
-		nl.GetEntity(context,wordIndex,word);
-		nl.Print(wordIndex,word);
+//		ArrayList<NameEntity> wordIndex=new ArrayList<NameEntity>();
+		List<Object> ner=new ArrayList<Object>();
+		nl.GetEntity(context,ner);
+		nl.Print(ner);
 	}
 	private AbstractSequenceClassifier<CoreLabel> classifier;
 	private List<Triple<String,Integer,Integer>> triples;
@@ -37,23 +39,21 @@ public class NERLibrary {
     		index = new ArrayList<Triple<String,Integer,Integer>>();
     	}
     }
-	
-	public void GetEntity(String context,ArrayList<Triple<String,Integer, Integer>> index,HashMap<String,String> word){
+	public void GetEntity(String context,List<Object> list){
        classifier.classifyToString(context, "slashTags", false);
        classifier.classifyWithInlineXML(context);
        length=context.length();
 	       triples = classifier.classifyToCharacterOffsets(context);
 	        for (Triple<String, Integer, Integer> trip : triples) {
-	        	index.add(trip);
-	        	word.put(trip.first(),context.substring(trip.second(),trip.third()));
-//	          System.out.printf("%s over character offsets [%d, %d] in sentence is :"+context.substring(trip.second(), trip.third())+".%n",
-//	                  trip.first(), trip.second(), trip.third);//(分类字段，起始位置，终止位置，第几个句子)
+	        	Quartet<String,String,Integer,Integer> four
+	        	=new Quartet<String,String,Integer,Integer>(trip.first(), context.substring(trip.second(), trip.third()), trip.second(), trip.third()) ;
+	        	list.add(four);
 	        }
 	}
-	public void Print(ArrayList<Triple<String,Integer, Integer>> index,HashMap<String,String> word){
+	public void Print(List<Object> list){
 //		index.iterator().toString();
-		System.out.println("全文共"+length+"个字符");
-		System.out.println(index);
-		System.out.println(word);
+		System.out.println("全文共"+length+"个字符");	
+		for(int i=0;i<list.size();i++){
+		System.out.println(list.get(i));}
 	}
 }

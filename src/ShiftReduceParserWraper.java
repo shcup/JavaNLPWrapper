@@ -16,7 +16,7 @@ import edu.stanford.nlp.util.Pair;
 public class ShiftReduceParserWraper {
 	
 	public static void main(String[] args) {
-		String context = "Priyanka who has earned laurels for her character in the series Quantico will now make a Hollywood debut with ¡®Baywatch¡¯.";
+		String context = "Euro 2016 Final: Yuvraj Singh, Chris Gayle, others celebrate Portugal's victory";
 		ShiftReduceParserWraper srparser = new ShiftReduceParserWraper();
 		HashMap<String, TagIndex> np_hashmap = new HashMap<String, TagIndex>(); 
 		HashMap<String, TagIndex> nnp_hashmap = new HashMap<String, TagIndex>(); 

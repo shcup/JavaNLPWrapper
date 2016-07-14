@@ -11,7 +11,7 @@ import edu.stanford.nlp.process.TokenizerFactory;
 
 public class TokenizerDemo {
 	public static void main(String[] args){
-		String context = "Priyanka who has earned laurels for her character in the series Quantico will now make a Hollywood debut with ¡®Baywatch¡¯.";
+		String context = "Euro 2016 Final: Yuvraj Singh, Chris Gayle, others celebrate Portugal's victory";
 		TokenizerDemo token=new TokenizerDemo();
 		ArrayList<String> tokenword=new ArrayList<String>();
 		token.Token(context,tokenword);
