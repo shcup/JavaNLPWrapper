@@ -6,11 +6,9 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="E:/tmp/stanford-corenlp-full-2014-08-27/stanford-corenlp-3.4.1.jar"/>
-	<classpathentry kind="lib" path="E:/tmp/stanford-corenlp-full-2014-08-27/stanford-corenlp-3.4.1-models.jar"/>
-	<classpathentry kind="lib" path="E:/tmp/stanford-srparser-2014-08-28-models.jar"/>
-	<classpathentry kind="lib" path="E:/tmp/stanford-parser-full-2014-08-27/stanford-parser.jar" sourcepath="E:/tmp/stanford-parser-full-2014-08-27/stanford-parser-3.4.1-sources.jar"/>
-	<classpathentry kind="lib" path="E:/tmp/stanford-parser-full-2014-08-27/stanford-parser-3.4.1-models.jar"/>
-	<classpathentry kind="lib" path="E:/tmp/javatuples-1.2.jar"/>
+	<classpathentry kind="lib" path="D:/workplace/javatuples-1.2.jar"/>
+	<classpathentry kind="lib" path="D:/workplace/stanford-srparser-2014-08-28-models.jar"/>
+	<classpathentry kind="lib" path="D:/workplace/stanford-corenlp-full-2014-08-27/stanford-corenlp-3.4.1.jar" sourcepath="D:/workplace/stanford-corenlp-full-2014-08-27/stanford-corenlp-3.4.1-sources.jar"/>
+	<classpathentry kind="lib" path="D:/workplace/stanford-corenlp-full-2014-08-27/stanford-corenlp-3.4.1-models.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

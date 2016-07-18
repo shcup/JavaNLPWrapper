@@ -13,14 +13,15 @@ import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 import edu.stanford.nlp.trees.Tree;
 import edu.stanford.nlp.util.Pair;
 
+
 public class ShiftReduceParserWraper {
 	
 	public static void main(String[] args) {
 		String context = "Euro 2016 Final: Yuvraj Singh, Chris Gayle, others celebrate Portugal's victory";
 		ShiftReduceParserWraper srparser = new ShiftReduceParserWraper();
-		HashMap<String, TagIndex> np_hashmap = new HashMap<String, TagIndex>(); 
-		HashMap<String, TagIndex> nnp_hashmap = new HashMap<String, TagIndex>(); 
-		HashMap<String, TagIndex> vb_hashmap = new HashMap<String, TagIndex>();
+		HashMap<String, MatchType> np_hashmap = new HashMap<String, MatchType>(); 
+		HashMap<String, MatchType> nnp_hashmap = new HashMap<String, MatchType>(); 
+		HashMap<String, MatchType> vb_hashmap = new HashMap<String, MatchType>();
 		
 		srparser.ParagraphPhraseParse(context, 0, np_hashmap, nnp_hashmap, vb_hashmap);
 		System.out.println("np");
@@ -37,20 +38,13 @@ public class ShiftReduceParserWraper {
     private MaxentTagger tagger = new MaxentTagger(taggerPath);
     private ShiftReduceParser model = ShiftReduceParser.loadModel(modelPath);
     
-    public class TagIndex {
-    	public ArrayList<Pair<Integer, Integer>> index;
-    	public TagIndex() {
-    		index = new ArrayList<Pair<Integer, Integer>>();
-    	}
-    }
-    
-    public void Print(HashMap<String, TagIndex> hashmap) {
+    public void Print(HashMap<String, MatchType> hashmap) {
     	Iterator iter = hashmap.keySet().iterator();
     	while (iter.hasNext()) {
     		Object key = iter.next();
-    		TagIndex index = hashmap.get(key);
+    		MatchType index = hashmap.get(key);
     		System.out.println(key);
-    		for (Pair<Integer, Integer> pair : index.index) {
+    		for (Pair<Integer, Integer> pair : index.match) {
     			System.out.print(pair.first + "_" + pair.second + " ");
     		}
     		System.out.println();
@@ -58,9 +52,9 @@ public class ShiftReduceParserWraper {
     }
     
     public void ParagraphPhraseParse(String text, int paragraph_idx,
-    														HashMap<String, TagIndex> np_hashmap, 
-    														HashMap<String, TagIndex> nnp_hashmap, 
-    														HashMap<String, TagIndex> vb_hashmap) {
+    														HashMap<String, MatchType> np_hashmap, 
+    														HashMap<String, MatchType> nnp_hashmap, 
+    														HashMap<String, MatchType> vb_hashmap) {
 	    DocumentPreprocessor tokenizer = new DocumentPreprocessor(new StringReader(text));
 
 	    int idx = 0;
@@ -76,28 +70,28 @@ public class ShiftReduceParserWraper {
 	      
 	      for (String np : np_array) {
 	    	  if (np_hashmap.containsKey(np)) {
-	    		  np_hashmap.get(np).index.add(new Pair(paragraph_idx, idx));
+	    		  np_hashmap.get(np).match.add(new Pair(paragraph_idx, idx));
 	    	  } else {
-	    		  np_hashmap.put(np, new TagIndex());
-	    		  np_hashmap.get(np).index.add(new Pair(paragraph_idx, idx));
+	    		  np_hashmap.put(np, new MatchType());
+	    		  np_hashmap.get(np).match.add(new Pair(paragraph_idx, idx));
 	    	  }
 	      }
 	      
 	      for (String nnp : nnp_array) {
 	    	  if (nnp_hashmap.containsKey(nnp)) {
-	    		  nnp_hashmap.get(nnp).index.add(new Pair(paragraph_idx, idx));
+	    		  nnp_hashmap.get(nnp).match.add(new Pair(paragraph_idx, idx));
 	    	  } else {
-	    		  nnp_hashmap.put(nnp, new TagIndex());
-	    		  nnp_hashmap.get(nnp).index.add(new Pair(paragraph_idx, idx));
+	    		  nnp_hashmap.put(nnp, new MatchType());
+	    		  nnp_hashmap.get(nnp).match.add(new Pair(paragraph_idx, idx));
 	    	  }
 	      }
 	      
 	      for (String vb : vb_array) {
 	    	  if (vb_hashmap.containsKey(vb)) {
-	    		  vb_hashmap.get(vb).index.add(new Pair(paragraph_idx, idx));
+	    		  vb_hashmap.get(vb).match.add(new Pair(paragraph_idx, idx));
 	    	  } else {
-	    		  vb_hashmap.put(vb, new TagIndex());
-	    		  vb_hashmap.get(vb).index.add(new Pair(paragraph_idx, idx));
+	    		  vb_hashmap.put(vb, new MatchType());
+	    		  vb_hashmap.get(vb).match.add(new Pair(paragraph_idx, idx));
 	    	  }
 	      }
 	      idx++;
