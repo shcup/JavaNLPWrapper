@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Scanner;
 
 import edu.stanford.nlp.ling.HasWord;
 import edu.stanford.nlp.ling.TaggedWord;
@@ -19,17 +20,21 @@ public class ShiftReduceParserWraper {
 	public static void main(String[] args) {
 		String context = "Euro 2016 Final: Yuvraj Singh, Chris Gayle, others celebrate Portugal's victory";
 		ShiftReduceParserWraper srparser = new ShiftReduceParserWraper();
-		HashMap<String, MatchType> np_hashmap = new HashMap<String, MatchType>(); 
-		HashMap<String, MatchType> nnp_hashmap = new HashMap<String, MatchType>(); 
-		HashMap<String, MatchType> vb_hashmap = new HashMap<String, MatchType>();
-		
-		srparser.ParagraphPhraseParse(context, 0, np_hashmap, nnp_hashmap, vb_hashmap);
-		System.out.println("np");
-		srparser.Print(np_hashmap);
-		System.out.println("nnp");
-		srparser.Print(nnp_hashmap);
-		System.out.println("vb");
-		srparser.Print(vb_hashmap);
+		Scanner scanner = new Scanner(System.in);
+		while(true) {
+			context = scanner.nextLine();
+			HashMap<String, MatchType> np_hashmap = new HashMap<String, MatchType>(); 
+			HashMap<String, MatchType> nnp_hashmap = new HashMap<String, MatchType>(); 
+			HashMap<String, MatchType> vb_hashmap = new HashMap<String, MatchType>();
+			
+			srparser.ParagraphPhraseParse(context, 0, np_hashmap, nnp_hashmap, vb_hashmap);
+			System.out.println("np");
+			srparser.Print(np_hashmap);
+			System.out.println("nnp");
+			srparser.Print(nnp_hashmap);
+			System.out.println("vb");
+			srparser.Print(vb_hashmap);
+		}
 	}
 	
     private String modelPath = "edu/stanford/nlp/models/srparser/englishSR.ser.gz";

@@ -1,11 +1,15 @@
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.zip.GZIPInputStream;
 
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.ling.Label;
@@ -22,7 +26,32 @@ public class Stopword {
 		st.Deword(context,wordlist);
 		st.print(wordlist);
 	}
+	public Stopword() throws IOException {
+		String path = "stopwords.txt";
+	    InputStream is = getClass().getClassLoader().getResourceAsStream(path);
+	    if (is == null) {
+	    	throw new IOException();
+	    }
+	    try {
+	      if (path.endsWith(".gz"))
+	        is = new GZIPInputStream(new BufferedInputStream(is));
+	      else
+	        is = new BufferedInputStream(is);
+	    } catch (IOException e) {
+	      System.err.println("CLASSPATH resource " + path + " is not a GZIP stream!");
+	    }
+		stopword = new HashSet<String>();
+		BufferedReader br=new BufferedReader(new InputStreamReader(is));
+        String line;
+        while((line=br.readLine())!=null) {
+            stopword.add(line);
+        }
+	}
     private String sw=null;
+    private HashSet<String> stopword = null;
+    public boolean IsStopWord(String word) {
+    	return stopword.contains(word);
+    }
 	public void Deword(String context,ArrayList<String> wordlist) throws IOException {
 		// TODO Auto-generated method stub
 		//loading the stopwords.
@@ -51,8 +80,8 @@ public class Stopword {
 			}
 			
 	}
-public void print(ArrayList<String> list){
-	for(int i = 0;i<list.size();i++){
-		System.out.println(""+list.get(i));}
-}
+	public void print(ArrayList<String> list){
+		for(int i = 0;i<list.size();i++){
+			System.out.println(""+list.get(i));}
+	}
 }
