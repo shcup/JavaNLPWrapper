@@ -23,17 +23,24 @@ public class ShiftReduceParserWraper {
 		Scanner scanner = new Scanner(System.in);
 		while(true) {
 			context = scanner.nextLine();
+			
 			HashMap<String, MatchType> np_hashmap = new HashMap<String, MatchType>(); 
 			HashMap<String, MatchType> nnp_hashmap = new HashMap<String, MatchType>(); 
 			HashMap<String, MatchType> vb_hashmap = new HashMap<String, MatchType>();
-			
+			long startTime=System.currentTimeMillis();
 			srparser.ParagraphPhraseParse(context, 0, np_hashmap, nnp_hashmap, vb_hashmap);
+			long endTime=System.currentTimeMillis();
 			System.out.println("np");
 			srparser.Print(np_hashmap);
 			System.out.println("nnp");
 			srparser.Print(nnp_hashmap);
 			System.out.println("vb");
 			srparser.Print(vb_hashmap);
+
+
+			
+
+			System.out.println("程序运行时间： "+(endTime-startTime)+"ms");
 		}
 	}
 	
@@ -60,6 +67,9 @@ public class ShiftReduceParserWraper {
     														HashMap<String, MatchType> np_hashmap, 
     														HashMap<String, MatchType> nnp_hashmap, 
     														HashMap<String, MatchType> vb_hashmap) {
+    	if (text == null || text.isEmpty()) {
+    		return;
+    	}
 	    DocumentPreprocessor tokenizer = new DocumentPreprocessor(new StringReader(text));
 
 	    int idx = 0;

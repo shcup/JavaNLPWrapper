@@ -52,6 +52,9 @@ public class NERLibrary {
 	        }
 	}
 	public void GetEntity(String context, int paragraph_idx, HashMap<String, MatchType> entitys_people, HashMap<String, MatchType> entitys_location, HashMap<String, MatchType> entitys_organization) {
+	   if (context == null || context.isEmpty()) {
+		   return;
+	   }
        classifier.classifyToString(context, "slashTags", false);
        classifier.classifyWithInlineXML(context);
        length = context.length();
